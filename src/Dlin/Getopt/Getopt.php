@@ -65,7 +65,10 @@ class Getopt
     function  __construct($options = null, $reportFunction = null, $exitFunction = null, $inputFunction = null)
     {
         $this->reportFunction = $reportFunction ? $reportFunction : function ($msg) {
+            echo $this->getUsage();
+            echo "\n";
             echo $msg;
+            echo "\n";
         };
         $this->exitFunction = $exitFunction ? $exitFunction : function () {
             exit;
@@ -200,8 +203,10 @@ class Getopt
                     $this->processDefinition($def);
 
                 } catch (OptionException $e) {
-                    $this->handleException($e);
-
+                    $valid = $this->handleException($e);
+                    if(!$valid){
+                        call_user_func($this->exitFunction);
+                    }
                 }
             }
         }

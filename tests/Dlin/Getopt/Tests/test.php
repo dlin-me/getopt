@@ -21,7 +21,7 @@ $option1 =
         'required'=>true,
         'pattern'=>'/\d+/',
         'patternMsg'=>'size must be a number',
-        'requiredMsg'=>'size is required'
+       // 'requiredMsg'=>'size is required'
     );
 $option2 =array(
         'arg'=>'t',

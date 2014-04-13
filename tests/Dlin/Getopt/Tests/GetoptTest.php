@@ -230,9 +230,9 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
         $go = new Getopt(null, function($msg)use(&$message){ $message = $msg;}, function(){});
 
         $this->assertEquals('Usage: php script_name.php', $go->getUsage());
-        $go->setUsage('Usage: please use it like this $0 -x [num] -y [num]');
+        $go->setUsage('please use it like this $0 -x [num] -y [num]');
 
-        $this->assertEquals('please use it like this script_name.php -x [num] -y [num]', $go->getUsage());
+        $this->assertEquals('Usage: please use it like this script_name.php -x [num] -y [num]', $go->getUsage());
     }
 
     /**
