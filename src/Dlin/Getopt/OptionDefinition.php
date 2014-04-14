@@ -1,10 +1,10 @@
 <?php
 /**
- * 
+ *
  * User: davidlin
  * Date: 11/04/2014
  * Time: 11:02 PM
- * 
+ *
  */
 
 namespace Dlin\Getopt;
@@ -75,7 +75,7 @@ class OptionDefinition {
      */
     public function getPromptMessage(){
 
-        return $this->data['promptMsg']?$this->data['promptMsg']: 'Please enter ('. $this->data['help']."):\n";
+        return $this->data['promptMsg']?$this->data['promptMsg']: 'Please enter ('. $this->data['help']."):";
     }
 
 }

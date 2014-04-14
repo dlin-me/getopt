@@ -1,10 +1,10 @@
 <?php
 /**
- * 
+ *
  * User: davidlin
  * Date: 13/04/2014
  * Time: 10:31 PM
- * 
+ *
  */
 
 include '../../../../vendor/autoload.php';
@@ -40,13 +40,14 @@ $go = new Getopt();
 $go->setUsage('php $0 -s [num] -t [int|string]');
 $go->setOption($option1)->setOption($option2)->parse();
 
+
 $size = intval($go->s);
 
 $result = array();
 for( $i = 0 ; $i < $size; $i++){
     $rand = rand(1,100000);
     if($go->t == 'string'){
-        $rand = strval($rand);
+        $rand = strval($rand).'s';
     }
     $result[] = $rand;
 }

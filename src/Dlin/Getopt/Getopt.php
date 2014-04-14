@@ -186,6 +186,7 @@ class Getopt
         }
         //store parsed options
         $this->parsedOptions = $result;
+
         //check if -h or --help presents
         if (array_key_exists('h', $this->parsedOptions) || array_key_exists('help', $this->parsedOptions)) {
             //output help text
@@ -276,15 +277,15 @@ class Getopt
             if ($key == '_') {
                 continue;
             }
+
             //match existence
             if ($definition->arg == $key || $definition->alias == $key) {
                 $exist = true;
-            }
 
-            //match pattern
-            if ($definition->pattern && !@preg_match($definition->pattern, $value)) {
-
-                throw new OptionException($definition->getPatternMsg(), $definition);
+                //match pattern
+                if ($definition->pattern && !@preg_match($definition->pattern, $value)) {
+                    throw new OptionException($definition->getPatternMsg(), $definition);
+                }
             }
         }
         if (($definition->required || $definition->prompt) && !$exist) { //required not found
