@@ -25,20 +25,20 @@ class OptionDefinitionTest extends \PHPUnit_Framework_TestCase
 
         $def = new OptionDefinition($option1);
 
-        $this->assertEquals( 'Option -test must match pattern: /pattern/', $def->getPatternMsg());
+        $this->assertEquals( 'Option -test must match pattern: /pattern/', trim($def->getPatternMsg()));
 
-        $this->assertEquals('Option -test is required.', $def->getRequiredMsg());
+        $this->assertEquals('Option -test is required.', trim($def->getRequiredMsg()));
 
-        $this->assertEquals('Please enter: test parameter', $def->getPromptMessage());
+        $this->assertEquals('Please enter: (test parameter)', trim($def->getPromptMessage()));
 
 
         $def = new OptionDefinition($option2);
 
-        $this->assertEquals($option2['patternMsg'], $def->getPatternMsg());
+        $this->assertEquals($option2['patternMsg'], trim($def->getPatternMsg()));
 
-        $this->assertEquals($option2['requiredMsg'], $def->getRequiredMsg());
+        $this->assertEquals($option2['requiredMsg'],trim( $def->getRequiredMsg()));
 
-        $this->assertEquals($option2['promptMsg'], $def->getPromptMessage());
+        $this->assertEquals($option2['promptMsg'], trim($def->getPromptMessage()));
 
 
 

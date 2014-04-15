@@ -75,7 +75,7 @@ class OptionDefinition {
      */
     public function getPromptMessage(){
 
-        return $this->data['promptMsg']?$this->data['promptMsg']: 'Please enter ('. $this->data['help']."):";
+        return $this->data['promptMsg']?$this->data['promptMsg']: 'Please enter: ('. $this->data['help'].")";
     }
 
 }

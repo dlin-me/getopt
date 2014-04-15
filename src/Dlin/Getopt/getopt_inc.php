@@ -1,23 +1,18 @@
 <?php
 /**
+ * Created by David Lin
+ * Project: getopt
+ * Date: 14/04/2014
+ * Time: 10:37 PM
  *
- * User: davidlin
- * Date: 11/04/14
- * Time: 11:40 PM
  *
- */
-
-namespace Dlin\Getopt;
-
-
-/**
- * Class Getopt
+ * This is a script for non-composer user.
  *
- * This class handles the command line argument parsing and specification
- *
- * @package Dlin\Getopt
+ * Simply include this into your script and you can start using Getopt.
  *
  */
+
+
 class Getopt
 {
 
@@ -65,6 +60,7 @@ class Getopt
     function  __construct($options = null, $reportFunction = null, $exitFunction = null, $inputFunction = null)
     {
         $this->reportFunction = $reportFunction ? $reportFunction : function ($msg) {
+
             echo $msg;
             echo "\n";
         };
@@ -377,5 +373,110 @@ class Getopt
         return null;
 
     }
+
+}
+
+class OptionDefinition {
+
+
+    protected $data = array();
+
+    /**
+     * Constructor
+     *
+     * @param $options array of configuration
+     */
+    public function __construct(array $options)
+    {
+
+        $args = array('arg', 'alias', 'required', 'default', 'help', 'prompt', 'pattern', 'promptMsg', 'patternMsg', 'requiredMsg');
+        $result = array();
+        foreach ($args as $arg) {
+            $result[$arg] = array_key_exists($arg, $options) ?  $options[$arg] : null;
+        }
+        if (!$result['arg']) {
+            throw new \Exception('Invalid option provided, "arg" key is required.');
+        }
+        $this->data = $result;
+
+        return $this;
+
+    }
+
+
+
+
+
+    /**
+     * Magic method for getting configuartion fields
+     *
+     * @param $name
+     * @return mixed
+     */
+    public function __get($name){
+        return $this->data[$name];
+    }
+
+
+    /**
+     * Get the message to display when missing required option
+     * @return string
+     */
+    public function getRequiredMsg(){
+        return $this->data['requiredMsg'] ? $this->data['requiredMsg'] : 'Option -'.$this->data['arg'].' is required.';
+    }
+
+    /**
+     * Get the message to display when option pattern matching fails
+     * @return string
+     */
+    public function getPatternMsg(){
+        return $this->data['patternMsg'] ? $this->data['patternMsg']: 'Option -'.$this->data['arg'].' must match pattern: '. $this->data['pattern']."\n";
+    }
+
+    /**
+     * Get the message to show when user input is required
+     *
+     * @return string
+     */
+    public function getPromptMessage(){
+
+        return $this->data['promptMsg']?$this->data['promptMsg']: 'Please enter: ('. $this->data['help'].")";
+    }
+
+}
+
+class OptionException extends \Exception{
+
+    /**
+     * Option definition
+     * @var
+     */
+    protected $definition;
+
+    /**
+     *
+     * New constructor
+     * @param string $message
+     * @param int $def OptionDefinition
+     * @param \Exception $option
+     */
+    public function __construct($message, OptionDefinition $def) {
+        $this->definition = $def;
+
+        parent::__construct($message);
+    }
+
+    // custom string representation of object
+    public function __toString() {
+        return $this->getMessage();
+    }
+
+    //Getter for definition
+    public function getDefinition() {
+        return $this->definition;
+    }
+
+
 
 }
