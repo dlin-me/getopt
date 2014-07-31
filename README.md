@@ -64,6 +64,8 @@ or you can set option configuration after creating an instance
 $getOpt = new GetOpt();
 $getOpt->setOption(array('arg'=>'s'));
 $getOpt->setOption(array('arg'=>'t'));
+
+$getOpt->parse();
 ```
 
 
